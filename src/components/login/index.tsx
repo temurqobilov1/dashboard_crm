@@ -4,7 +4,7 @@ import { useLoginMutation } from "../../hooks/useQuery/useQueryMutation/intex";
 import { Loader } from "lucide-react";
 
 const Login = () => {
-  const { mutate, isLoading } = useLoginMutation();
+  const { mutate, isPending } = useLoginMutation();
   const [form] = Form.useForm();
   const login = (e: LoginFormType) => {
     mutate(e);
@@ -31,7 +31,7 @@ const Login = () => {
         </Form.Item>
 
         <Button type="primary" htmlType="submit" className="w-full">
-          {isLoading ? <Loader size={18} className="animate-spin" /> : "Login"}
+          {isPending ? <Loader size={18} className="animate-spin" /> : "Login"}
         </Button>
       </Form>
     </div>
