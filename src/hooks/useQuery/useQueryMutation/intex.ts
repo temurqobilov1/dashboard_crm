@@ -1,7 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
 import { useAxios } from "../../uceAxios";
-import notificationApi from "../../../generic/notify";
 import { useNavigate } from "react-router-dom";
+import { notificationApi } from "../../../generic/notify";
+import Cookies from "js-cookie";
 
 export const useLoginMutation = () => {
   const axios = useAxios();
@@ -15,10 +16,13 @@ export const useLoginMutation = () => {
       navigate("/");
       notify("login");
       console.log(data);
+      const inTwoHours = new Date(new Date().getTime() + 2 * 60 * 60 * 1000);
+      Cookies.set("user", JSON.stringify(data.data), { expires: inTwoHours });
+      Cookies.set("token", data.data.token, { expires: inTwoHours });
     },
     onError: (error: { status: number }) => {
-      const status = error?.status || error?.status || 400;
-      if (status === 400 || status === 401) {
+      const status = error.status || 400;
+      if (status === 400) {
         notify("login_error");
       }
     },

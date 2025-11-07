@@ -2,7 +2,7 @@ import toast from "react-hot-toast/headless";
 
 type NotifyType = "login" | "login_error";
 
-const notificationApi = () => {
+export const notificationApi = () => {
   const notify = (type: NotifyType) => {
     switch (type) {
       case "login":
@@ -14,4 +14,3 @@ const notificationApi = () => {
 
   return notify;
 };
-export default notificationApi;
